@@ -3,10 +3,10 @@ def canUnlockAll(boxes):
     """ Function returns false or true """
     llavero = [0]
     if not boxes:
-        return
+        return False
 
     if type(boxes) != list:
-        return
+        return False
 
     if len(boxes) > 0:
         for llave in llavero:
@@ -14,6 +14,6 @@ def canUnlockAll(boxes):
                 if key in llavero:
                     continue
                 else:
-                    if key <= len(boxes):
+                    if key < len(boxes):
                         llavero.append(key)
         return (len(llavero) == len(boxes))
