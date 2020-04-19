@@ -14,17 +14,17 @@ PEP 8 (1.7.x)
 
 ## Installation
 
-´´´bash
+```bash
 git clone https://github.com/PauloMorillo/holbertonschool-interview.git
-´´´
+```
 
 
 ## Running
 
-´´´bash
-./0-main.py
-´´´
 
+```bash
+./0-main.py
+```
 
 ## Author
 Paulo Morillo
