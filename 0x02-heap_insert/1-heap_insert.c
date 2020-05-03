@@ -14,39 +14,34 @@ heap_t *heap_insert(heap_t **root, int value)
 	heap_t *new = NULL;
 	binary_tree_t *parent = NULL;
 
-	if (value)
+	if (*root)
 	{
-		if (*root)
+		/* recorrer */
+		parent = chooseparent(*root);
+		/* agregar */
+		if (parent->left && parent->right == NULL)
 		{
-			/* recorrer */
-			parent = chooseparent(*root);
-			/* agregar */
-			if (parent->left && parent->right == NULL)
-			{
-				parent->right = binary_tree_node(parent, value);
-				new = parent->right;
-			}
-
-			if (parent->left == NULL && parent->right == NULL)
-			{
-				parent->left = binary_tree_node(parent, value);
-				new = parent->left;
-			}
-			/* verificar */
-			new = verify_order(new);
-
+			parent->right = binary_tree_node(parent, value);
+			new = parent->right;
 		}
-		else
+
+		if (parent->left == NULL && parent->right == NULL)
 		{
-			*root = binary_tree_node(*root, value);
-			new = *root;
+			parent->left = binary_tree_node(parent, value);
+			new = parent->left;
 		}
-		return (new);
+		/* verificar */
+		new = verify_order(new);
+
 	}
-
-	return (NULL);
-
+	else
+	{
+		*root = binary_tree_node(*root, value);
+		new = *root;
+	}
+	return (new);
 }
+
 
 /**
  * chooseparent - function to choose parent node to insert
