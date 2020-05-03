@@ -32,7 +32,6 @@ heap_t *heap_insert(heap_t **root, int value)
 		}
 		/* verificar */
 		new = verify_order(new);
-
 	}
 	else
 	{
@@ -110,14 +109,17 @@ binary_tree_t *verify_order(binary_tree_t *tree)
 {
 	int temp = 0;
 
-	if (tree->parent)
+	if (tree)
 	{
-		if (tree->parent->n < tree->n)
+		if (tree->parent)
 		{
-			temp = tree->n;
-			tree->n = tree->parent->n;
-			tree->parent->n = temp;
-			return (verify_order(tree->parent));
+			if (tree->parent->n < tree->n)
+			{
+				temp = tree->n;
+				tree->n = tree->parent->n;
+				tree->parent->n = temp;
+				return (verify_order(tree->parent));
+			}
 		}
 	}
 	return (tree);
