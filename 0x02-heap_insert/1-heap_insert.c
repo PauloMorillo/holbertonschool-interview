@@ -2,10 +2,6 @@
 #include "binary_trees.h"
 #include <stdio.h>
 #include "binary_trees.h"
-binary_tree_t *binary_tree_preorder(binary_tree_t *tree);
-int binary_tree_balance(const binary_tree_t *tree);
-binary_tree_t *verify_order(binary_tree_t *tree);
-void plevel2(binary_tree_t *tree, int level, int value, int flag);
 
 /**
  * heap_insert - Function to insert a node for a binary tree
@@ -17,33 +13,28 @@ heap_t *heap_insert(heap_t **root, int value)
 {
 	heap_t *new = NULL;
 	binary_tree_t *parent = NULL;
-	int height = 0;
 
 	if (value)
 	{
 		if (*root)
 		{
-			height = binary_tree_height(*root);
-			if (binary_tree_balance(*root) == 0)
+			/* recorrer */
+			parent = chooseparent(*root);
+			/* agregar */
+			if (parent->left && parent->right == NULL)
 			{
-				puts("aqui entro");
-				parent = binary_tree_preorder(*root);
-				printf("parent value %d", parent->n);
-				parent->left = binary_tree_node(parent, value);
-				printf("esto es new %d\n",parent->left->n);
-				new = parent->left;
-				new = verify_order(parent->left);
-				printf("esto es new %d\n",new->n);
+				parent->right = binary_tree_node(parent, value);
+				new = parent->right;
 			}
-			else
-			{
-				puts("esta entrando por desbalance");
-				plevel2(*root, height + 1, value, 0);
-				puts("salgo bien");
-				new = *root;
 
-				printf("esto tiene new tree->n %d\n", new->n);
+			if (parent->left == NULL && parent->right == NULL)
+			{
+				parent->left = binary_tree_node(parent, value);
+				new = parent->left;
 			}
+			/* verificar */
+			new = verify_order(new);
+
 		}
 		else
 		{
@@ -58,121 +49,60 @@ heap_t *heap_insert(heap_t **root, int value)
 }
 
 /**
- * plevel - print node, especific level
- * @tree: pointer to the root node of the tree to traverse
- * @func: pointer to a function to call for each node.
- * @level: level to print
+ * chooseparent - function to choose parent node to insert
+ * @tree: pointer to the root node of the tree
+ * Return: return parent node
  */
-void plevel2(binary_tree_t *tree, int level, int value, int flag)
+binary_tree_t *chooseparent(binary_tree_t *tree)
 {
-	/* binary_tree_t *new = tree; */
-        /* /\* *nr = tree->right; *\\/ *\/ */
+	int a = 0, b = 0;
 
-	/* /\* if (level == 1) *\/ */
-	/* /\* { *\/ */
+	a = binary_tree_size(tree->left);
+	b = binary_tree_size(tree->right);
 
-
-	/* if (tree->left == NULL && tree->right == NULL && flag == 0) */
-	/* { */
-	/* 	flag = flag + 1; */
-	/* 	tree->left = binary_tree_node(tree, level); */
-	/* 	new = tree->left; */
-	/* 	return (tree->left); */
-	/* } */
-	/* if (tree->left && tree->right == NULL && flag == 0) */
-	/* { */
-	/* 	flag = flag + 1; */
-	/* 	tree->right = binary_tree_node(tree, level); */
-	/* 	return (tree->right); */
-	/* } */
-
-
-
-	/* /\* } *\/ */
-	/* /\* else *\/ */
-	/* /\* { *\/ */
-	/* if (tree->left) */
-	/* 	plevel(tree->left, level, flag); */
-	/* if (tree->right) */
-	/* 	plevel(tree->right, level, flag); */
-	/* if (height tree */
-	/* printf("esto es null y flag %d",flag); */
-	/* return (new); */
-
-	binary_tree_t *nl = tree->left;
- /* *nr = tree->right; */
-	int a = 0;
-
-	if (level == 2)
+	if (a <= b)
 	{
-		printf("estos es el último de la penúltima %d %d",tree->n, value);
-		if (tree->left == NULL && tree->right == NULL && flag == 0)
-		{
-			a = a + 1;
-			tree->left = binary_tree_node(tree, value);
-			verify_order(tree->left);
-			flag = flag + 1;
-		}
-		else
-		{
-			if (tree->left && tree->right == NULL && flag == 0 && a == 0)
-			{
-				tree->right = binary_tree_node(tree, value);
-				verify_order(tree->right);
-				flag = flag + 1;
-			}
-		}
-		flag = flag + 1;
+		if (tree->left)
+			return (chooseparent(tree->left));
+	}
+	else if (a > b && binary_tree_balance(tree->left) != 0)
+	{
+		if (tree->left)
+			return (chooseparent(tree->left));
 	}
 	else
 	{
-		if(tree->left)
-			plevel2(nl, level - 1, value, flag);
-		/* if(nr) */
-		/* 	plevel2(nr, level - 1, value, flag); */
+		if (tree->right)
+			return (chooseparent(tree->right));
 	}
-	flag = flag + 1;
-
+	return (tree);
 }
 
 /**
- *binary_tree_height - measures the height of a binary tree
- *@tree: pointer to root node of the tree measure the height
- *Return: if tree is NULL return 0
- */
-size_t binary_tree_height(const binary_tree_t *tree)
-{
-	size_t height1 = 0, height2 = 0;
-
-	if (!tree || (!tree->left && !tree->right))
-		return (0);
-
-	height1 = binary_tree_height(tree->left);
-	height2 = binary_tree_height(tree->right);
-
-	if (height1 < height2)
-		return (height2 + 1);
-	return (height1 + 1);
-}
-
-/**
- * binary_tree_preorder - This function prints preorder traversal a binary tree
+ * binary_tree_size - This function returns the size of the tree
  * @tree: root of tree
- * @func: pointer to a function to call for each node
- * Return: It doesnt return anything
+ * Return: returns the size
  */
-binary_tree_t *binary_tree_preorder(binary_tree_t *tree)
+size_t binary_tree_size(const binary_tree_t *tree)
 {
-	/* if (tree) */
-	/* { */
- 		/* func(tree->n); */
-		/* depth = depth + 1; */
-	if (tree->left)
+	/* int c = 0; */
+	int a = 0;
+	/* int b = 0; */
+
+	if (tree)
 	{
-		return(binary_tree_preorder(tree->left));
-		/* return(tree->left); */
+		a = a + 1;
+		if (tree->left)
+		{
+			a = a + (binary_tree_size(tree->left));
+		}
+		if (tree->right)
+		{
+			a = a + (binary_tree_size(tree->right));
+		}
+		return (a);
 	}
-	return(tree);
+	return (0);
 }
 
 
@@ -192,7 +122,7 @@ binary_tree_t *verify_order(binary_tree_t *tree)
 			temp = tree->n;
 			tree->n = tree->parent->n;
 			tree->parent->n = temp;
-			verify_order(tree->parent);
+			return (verify_order(tree->parent));
 		}
 	}
 	return (tree);
