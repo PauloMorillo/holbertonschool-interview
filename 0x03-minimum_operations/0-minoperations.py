@@ -6,6 +6,8 @@ Module with minoperations function
 
 def minOperations(n):
     """This method returns the number of operations to copy paste"""
+    if type(n) is not int:
+        return 0
     if n < 1:
         return 0
     h = 1
