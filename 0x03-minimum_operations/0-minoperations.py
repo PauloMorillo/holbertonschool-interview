@@ -31,7 +31,7 @@ def minOperations(n):
             h = 2 * h
             copiados += ant
             pegados += (2 * ant) - pegados
-            print("entra en por 2", co, pegados)
+            # print("entra en por 2", co, pegados)
         elif n % h == 0 and h != 1:
             if n % pegados == 0:
                 ant = pegados
@@ -47,7 +47,7 @@ def minOperations(n):
             # h = 2 * h
             pa += 1
             pegados += ant
-            print("entra en por 1", co, pegados)
+            # print("entra en por 1", co, pegados)
         else:
             nohacopiado1 = 0
             if nohacopiado3 == 0:
@@ -57,7 +57,7 @@ def minOperations(n):
             h = h + ant
             pa += 1
             pegados += ant
-            print("entra en sumar 1", co, pegados)
+            # print("entra en sumar 1", co, pegados)
         if pegados >= n:
             break
 
