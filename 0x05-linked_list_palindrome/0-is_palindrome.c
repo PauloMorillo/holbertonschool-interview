@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 /**
  * add_node - add new node at the beginning of a list
  * @head: pointer to head of the list
@@ -27,6 +28,30 @@ listint_t *add_node(listint_t **head, int n)
 	}
 	*head = new;
 	return (new);
+}
+
+/**
+ * reverse_listint - reverse list
+ * @head: pointer to the head of the list
+ * Return: address new head
+ */
+
+listint_t *reverse_listint(listint_t **head)
+{
+	listint_t *p, *se;
+
+	p = NULL;
+	if (*head == NULL)
+		return (NULL);
+	while (*head != NULL)
+	{
+		se = (*head)->next;
+		(*head)->next = p;
+		p = *head;
+		(*head) = se;
+	}
+	*head = p;
+	return (*head);
 }
 
 /**
@@ -66,13 +91,15 @@ int is_palindrome(listint_t **head)
 	/* printf("%d\n", mid); */
 	while (temp != NULL)
 	{
-		if (pos >= mid)
-			add_node(&sec_half, temp->n);
+		if (pos == mid)
+		{
+			temp2 = reverse_listint(&temp);
+			break;
+		}
 		temp = temp->next;
 		pos++;
 	}
 	temp = *head;
-	temp2 = sec_half;
 	while (temp2->next != NULL)
 	{
 		/* printf("%d, %d\n", temp->n, temp2->n); */
