@@ -5,7 +5,7 @@
 /**
  * add_node - add new node at the beginning of a list
  * @head: pointer to head of the list
- * @str: name of new object
+ * @n: number to add in node
  * Return: The address of the new element or NULL
  */
 listint_t *add_node(listint_t **head, int n)
