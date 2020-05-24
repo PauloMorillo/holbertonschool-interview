@@ -57,6 +57,8 @@ int is_palindrome(listint_t **head)
 	listint_t *temp = *head, *temp2 = NULL, *sec_half = NULL;
 
 	len = list_len(*head);
+	if (len == 0)
+		return (1);
 	if (len % 2 == 0)
 		mid = len / 2;
 	else
