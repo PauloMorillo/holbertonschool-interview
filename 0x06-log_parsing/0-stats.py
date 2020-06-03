@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """ This script returns <status code>: <number>"""
 import sys
-import fileinput
 import signal
 
 
@@ -23,7 +22,7 @@ def signal_handler(signal, frame):
 signal.signal(signal.SIGINT, signal_handler)
 
 
-for line in fileinput.input():
+for line in sys.stdin:
     each_argvs = line.split(" ")
     if len(each_argvs) == 9:
         status = each_argvs[-2]
