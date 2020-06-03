@@ -22,18 +22,18 @@ if __name__ == "__main__":
             # print(line)
             b = 0
             each_argvs = line.split(" ")
-            if len(each_argvs) == 9:
+            if len(each_argvs) > 6:
                 status = each_argvs[-2]
+                size = size + int(each_argvs[-1][:])
                 if status in statuses:
                     i = statuses.index(status)
                     statusn[i] = statusn[i] + 1
-                    size = size + int(each_argvs[-1][:-1])
-                    if a % 10 == 0:
-                        b = 1
-                        print("File size: {}".format(size))
-                        for i in range(len(statusn)):
-                            if statusn[i] > 0:
-                                print("{}: {}".format(statuses[i], statusn[i]))
+                if a % 10 == 0:
+                    b = 1
+                    print("File size: {}".format(size))
+                    for i in range(len(statusn)):
+                        if statusn[i] > 0:
+                            print("{}: {}".format(statuses[i], statusn[i]))
             a = a + 1
         print("File size: {}".format(size))
         for i in range(len(statusn)):
