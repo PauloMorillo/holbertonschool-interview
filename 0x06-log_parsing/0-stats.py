@@ -35,7 +35,7 @@ if __name__ == "__main__":
                             if statusn[i] > 0:
                                 print("{}: {}".format(statuses[i], statusn[i]))
             a = a + 1
-        if b is not 1:
+        if b is  1 or b is 0:
             print("File size: {}".format(size))
             for i in range(len(statusn)):
                 if statusn[i] > 0:
