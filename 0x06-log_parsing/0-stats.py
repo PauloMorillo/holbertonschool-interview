@@ -18,7 +18,7 @@ if __name__ == "__main__":
         sys.exit(0)
     signal.signal(signal.SIGINT, signal_handler)
     for line in sys.stdin:
-        print(line)
+        # print(line)
         each_argvs = line.split(" ")
         if len(each_argvs) == 9:
             status = each_argvs[-2]
