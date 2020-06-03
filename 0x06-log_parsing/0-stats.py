@@ -26,7 +26,7 @@ if __name__ == "__main__":
                 i = statuses.index(status)
                 statusn[i] = statusn[i] + 1
                 size = size + int(each_argvs[-1][:-1])
-                if a % 10 == 0 or a == 1:
+                if a % 10 == 0:
                     print("File size: {}".format(size))
                     for i in range(len(statusn)):
                         if statusn[i] > 0:
