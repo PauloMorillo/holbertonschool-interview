@@ -17,7 +17,8 @@ int is_palindrome(unsigned long n)
 	{
 		dec = dec * 10;
 	}
-	dec = dec / 10;
+	if (dec > 1)
+		dec = dec / 10;
 	while (dec >= 1)
 	{
 		unit = n / dec;
