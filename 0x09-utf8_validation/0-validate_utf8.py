@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+""" This script is not mine, thanks to leetcode.com"""
 
 
 def validUTF8(data):
