@@ -48,10 +48,10 @@ void left_order(int *line, size_t size)
 		if (line[con] > 0 && flag == 0)
 		{
 			pos = con;
-				flag = 1;
+			flag = 1;
 		}
-		}
-	for (con2 = 0; con2 <= count_Z; con2++)
+	}
+	for (con2 = 0; con2 < count_Z; con2++)
 	{
 		for (pos = size - 2; pos >= 0; pos--)
 		{
@@ -93,6 +93,7 @@ int slide_line(int *line, size_t size, int direction)
 	}
 	if (direction == 1)
 	{
+
 		reverse_array(line, size);
 		left_order(line, size);
 		for (con3 = 1; con3 < con; con3++)
