@@ -4,109 +4,157 @@
 #include "slide_line.h"
 
 /**
- * reverse_array - reverse the array
- * @a: first input array
- * @n: second input length of first input
+ * zeros_right - Remove zeros
  *
- * Return: this function doesn't use return
+ * @line: Pointer to the array of int
+ * @size: Number of elements in @line
  */
-
-void reverse_array(int *a, int n)
+void zeros_right(int *line, size_t size)
 {
-	int a2 = 0;
-	/*int a3 = 0;*/
-	int izq;
-	int der;
+	size_t i;
+	int found, zeros, aux, tmp, act;
 
-	n = n - 1;
-	while (n > a2)
-	{
-		izq = a[a2];
-		der = a[n];
-		a[a2] = der;
-		a[n] = izq;
-		n = n - 1;
-		a2 = a2 + 1;
-
-	}
-}
-
-/**
- * left_order - order the array
- * @line: line points to an array of integers containing size elements
- * @size: Number of elements in line
- */
-void left_order(int *line, size_t size)
-{
-	int con = 0, con2 = 0, pos = 0, flag = 0, count_Z = 0;
-
-	con = size - 1;
-	for (; con >= 0; con--)
-	{
-		if (flag == 1 && line[con] == 0)
-			count_Z = count_Z + 1;
-		if (line[con] > 0 && flag == 0)
+	i = size - 1;
+	do {
+		found = 0;
+		zeros = 0;
+		for (act = i; act >= 0; act--)
 		{
-			pos = con;
-			flag = 1;
-		}
-	}
-	for (con2 = 0; con2 <= count_Z; con2++)
-	{
-		for (pos = size - 2; pos >= 0; pos--)
-		{
-			if (line[pos] == 0)
+			/*printf(">%d\n}1;5202;0c", line[act]);*/
+			if (line[act] == 0)
 			{
-				line[pos] = line[pos + 1];
-				line[pos + 1] = 0;
+				zeros += 1;
+				/*printf("ZEROOOO\n");*/
+			}
+			else if (line[act] != 0)
+			{
+				/*printf("FOUND\n");*/
+				found = 1;
+				break;
 			}
 		}
+		aux = i - zeros;
+		if (aux >= 0)
+		{
+			tmp = line[i];
+			line[i] = line[aux];
+			line[aux] = tmp;
+		}
+		i--;
+	} while (found);
+}
+
+/**
+ * add_right - Add numbers once
+ *
+ * @line: Pointer to the array of int
+ * @size: Number of elements in @line
+ */
+
+void add_right(int *line, size_t size)
+{
+	size_t i;
+	int aux;
+
+	for (i = size - 1; i > 0; i--)
+	{
+		aux = i - 1;
+		if (line[i] == line[aux])
+		{
+			line[i] += line[aux];
+			line[aux] = 0;
+		}
 	}
 }
 
 /**
- * slide_line - slide line function to do the 2048 game
- * @line: line points to an array of integers containing size elements
- * @direction: Macro with position
- * @size: Number of elements in line
- * Return: 1 or 0
+ * add_left - Add numbers once
+ *
+ * @line: Pointer to the array of int
+ * @size: Number of elements in @line
  */
+void add_left(int *line, size_t size)
+{
+	size_t i;
+	int aux;
+
+	for (i = 0; i < (size - 1); i++)
+	{
+		aux = i + 1;
+		if (line[i] == line[aux])
+		{
+			line[i] += line[aux];
+			line[aux] = 0;
+		}
+	}
+}
+
+/**
+ * zeros_left - Remove zeros
+ *
+ * @line: Pointer to the array of int
+ * @size: Number of elements in @line
+ */
+void zeros_left(int *line, size_t size)
+{
+	int found, zeros, aux, tmp, i, act, s;
+
+	s = size;
+	i = 0;
+	do {
+		found = 0;
+		zeros = 0;
+		for (act = i; act < s; act++)
+		{
+			/*printf(">%d\n}1;5202;0c", line[act]);*/
+			if (line[act] == 0)
+			{
+				zeros += 1;
+				/*printf("ZEROOOO\n");*/
+			}
+			else if (line[act] != 0)
+			{
+				/*printf("FOUND\n");*/
+				found = 1;
+				break;
+			}
+		}
+		aux = i + zeros;
+		if (aux < s)
+		{
+			tmp = line[i];
+			line[i] = line[aux];
+			line[aux] = tmp;
+		}
+		i++;
+	} while (found);
+}
+
+/**
+ * slide_line - move right or left (2048 game)
+ *
+ * @line: Pointer to the array of int
+ * @size: Number of elements in @line
+ * @direction: direction to slide and merge
+ * Return: Your function must return 1 upon success,
+ * or 0 upon failure
+ */
+
 int slide_line(int *line, size_t size, int direction)
 {
-	int con = 5;
-	int con3 = 0;
-
 	if (direction == 0)
 	{
-		left_order(line, size);
-		con = size;
-		for (con3 = 1; con3 < con; con3++)
-		{
-			if (line[con3] == line[con3 - 1])
-			{
-				line[con3 - 1] = line[con3] * 2;
-				line[con3] = 0;
-			}
-		}
-		left_order(line, size);
-		return (1);
+		zeros_left(line, size);
+		add_left(line, size);
+		zeros_left(line, size);
 	}
-	if (direction == 1)
+	else if (direction == 1)
 	{
-
-		reverse_array(line, size);
-		left_order(line, size);
-		for (con3 = 1; con3 < con; con3++)
-		{
-			if (line[con3] == line[con3 - 1])
-			{
-				line[con3 - 1] = line[con3] * 2;
-				line[con3] = 0;
-			}
-		}
-		left_order(line, size);
-		reverse_array(line, size);
-		return (1);
+		zeros_right(line, size);
+		add_right(line, size);
+		zeros_right(line, size);
 	}
-	return (0);
+	else
+		return (0);
+	return (1);
 }
