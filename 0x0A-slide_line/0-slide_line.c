@@ -51,7 +51,7 @@ void left_order(int *line, size_t size)
 			flag = 1;
 		}
 	}
-	for (con2 = 0; con2 < count_Z; con2++)
+	for (con2 = 0; con2 <= count_Z; con2++)
 	{
 		for (pos = size - 2; pos >= 0; pos--)
 		{
