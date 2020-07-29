@@ -17,56 +17,62 @@ if n < 4:
     print('N must be at least 4')
     exit(1)
 
-q = 0
-queens = []
+k = 1
 
-while q < n:
-    i = 0
-    while i < n:
-        j = 0
-        while j < n:
-            # print(queens)
-            if len(queens) is 0:
-                queens = [[i, j]]
-            else:
-                add_q = 0
-                for pos_q in queens:
-                    left = pos_q[0] + pos_q[1]
-                    eq_l = i + j
-                    right = pos_q[1] - pos_q[0] + i
-                    if i == pos_q[0] or j == pos_q[1]\
-                            or eq_l == left or right == j:
-                        # print("aquí")
-                        # print(i, j, pos_q[0], pos_q[1], n)
-                        pass
-                    else:
-                        add_q = add_q + 1
-                        # print(i, j, add_q, "veces que entra")
-                if add_q == len(queens):
-                    # print("esta entrando")
-                    queens.append([i, j])
-                else:
-                    if j == n - 1 and queens[-1][0] != i:
-                        i, j = queens.pop()
-                        if j == n - 1 and i is not 0:
-                            i, j = queens.pop()
-                    # if j == n - 1:
-                        # print("estoy entrando para pop")
-                        # i, j = queens.pop()
-                        # q = q - 1
-                    if len(queens) == n:
-                        print(queens)
-                        i = queens[0][0]
-                        j = queens[0][1]
-                        # print(i, j, "esto es lo que devolvemos")
-                        q = 0 - 1
-                        queens = []
-                        if j == n - 2:
-                            i = n
-                            q = n
-                            break
-            j = j + 1
-        # print(i, "esta es la i")
+
+def printSolution(board):
+    queens = []
+    global k
+    k = k + 1
+    for i in range(n):
+        for j in range(n):
+            if board[i][j] == 1:
+                queens.append([i, j])
+    print(queens)
+
+
+def isSafe(board, row, col):
+    for i in range(col):
+        if (board[row][i]):
+            return False
+    i = row
+    j = col
+    while i >= 0 and j >= 0:
+        if(board[i][j]):
+            return False
+        i -= 1
+        j -= 1
+
+    i = row
+    j = col
+    while j >= 0 and i < n:
+        if(board[i][j]):
+            return False
         i = i + 1
-    q = q + 1
-# print(queens)
+        j = j - 1
+    return True
+
+
+def solveNQUtil(board, col):
+    ''' base case: If all queens are placed
+    then return true '''
+    if (col == n):
+        printSolution(board)
+        return True
+    res = False
+    for i in range(n):
+        if (isSafe(board, i, col)):
+            board[i][col] = 1
+            res = solveNQUtil(board, col + 1) or res
+            board[i][col] = 0
+    return res
+
+
+def solveNQ():
+    board = [[0 for j in range(n)] for i in range(n)]
+    if (solveNQUtil(board, 0) is False):
+        pass
+        return
+    return
+
+solveNQ()
