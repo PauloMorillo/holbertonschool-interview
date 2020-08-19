@@ -4,7 +4,7 @@ const request = require('request');
 function requesito (url) {
   return new Promise((resolve, reject) => {
     request(url, (error, response, body) => {
-      if (error) reject(error);
+      if (error) console.error(error);
       if (response.statusCode !== 200) {
         reject('Invalid status code <' + response.statusCode + '>');
       }
@@ -21,10 +21,10 @@ request('https://swapi-api.hbtn.io/api/films/' + process.argv[2], async function
   let a = 0;
   while (a < characters.length) {
     try {
-	  const body = await requesito(characters[a]);
-	  console.log(JSON.parse(body).name);
+      const body = await requesito(characters[a]);
+      console.log(JSON.parse(body).name);
     } catch (error) {
-	  console.error(error);
+      console.error(error);
     }
 
     a = a + 1;
