@@ -53,12 +53,15 @@ void heap_sort(int *array, size_t size)
 	size_t i;
 	size_t laurencia = size;
 
-	for (i = size / 2 - 1; (int)i >= 0; i--)
-		heapify(array, size, i, laurencia);
-	for (i = size - 1; i > 0; i--)
+	if (array != NULL)
 	{
-		swap_int(&array[0], &array[i]);
-		print_array(array, size);
-		heapify(array, i, 0, laurencia);
+		for (i = size / 2 - 1; (int)i >= 0; i--)
+			heapify(array, size, i, laurencia);
+		for (i = size - 1; i > 0; i--)
+		{
+			swap_int(&array[0], &array[i]);
+			print_array(array, size);
+			heapify(array, i, 0, laurencia);
+		}
 	}
 }
