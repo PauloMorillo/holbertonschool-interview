@@ -2,6 +2,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void print_array(int *array, int a, int high);
+/**
+ * print_array - search value in an array with advanced binary search
+ * @array: array with values to search
+ * @a: minimum position to index
+ * @high: max position
+ * Return: Not return
+ */
+void print_array(int *array, int a, int high)
+{
+	if (a <= high)
+	{
+		printf(" %d", array[a]);
+		if (a < (high))
+			printf(",");
+		print_array(array, a + 1, high);
+	}
+	/* return; */
+}
+
 /**
  * advanced_binary - search value in an array with advanced binary search
  * @array: array with values to search
@@ -21,13 +41,7 @@ int advanced_binary(int *array, size_t size, int value)
 		mid = (((high + low) / 2));
 		printf("Searching in array:");
 		a = low;
-		while (a <= high)
-		{
-			printf(" %d", array[a]);
-			if (a < (high))
-				printf(",");
-			a = a + 1;
-		}
+		print_array(array, a, high);
 		printf("\n");
 		if (array[mid] == value)
 		{
