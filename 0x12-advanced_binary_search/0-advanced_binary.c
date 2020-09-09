@@ -53,7 +53,10 @@ int advanced_binary(int *array, size_t size, int value)
 		else if (array[mid] < value)
 			low = mid + 1;
 		else
-			high = mid - 1;
+			if (size % 2 == 0)
+				high = mid - 1;
+			else
+				high = mid;
 	}
 	return (-1);
 }
