@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-
-import numpy as np
+"""This module has the rotate_2d_matrix method"""
 
 
 def rotate_2d_matrix(matrix):
