@@ -10,46 +10,46 @@
  */
 void merging(int *array, int posi, int middle, int size, int *copy)
 {
-  int i, j, k;
+	int i, j, k;
 
-  i = posi;
-  j = middle;
-  printf("Merging...\n");
-  printf("[left]: ");
-  for (k = i; k < j; k++)
-    {
-      if (k != j - 1)
-	printf("%d, ", array[k]);
-      else
-	printf("%d\n", array[k]);
-    }
-  printf("[right]: ");
-  for (k = j; k < size; k++)
-    {
-      if (k != size - 1)
-	printf("%d, ", array[k]);
-      else
-	printf("%d\n", array[k]);
-    }
-  printf("[Done]: ");
-  for (k = i; k < size; k++)
-    {
-      if (i < middle && (j >= size || array[i] <= array[j]))
+	i = posi;
+	j = middle;
+	printf("Merging...\n");
+	printf("[left]: ");
+	for (k = i; k < j; k++)
 	{
-	  copy[k] = array[i];
-	  i++;
+		if (k != j - 1)
+			printf("%d, ", array[k]);
+		else
+			printf("%d\n", array[k]);
 	}
-      else
+	printf("[right]: ");
+	for (k = j; k < size; k++)
 	{
-	  copy[k] = array[j];
-	  j++;
+		if (k != size - 1)
+			printf("%d, ", array[k]);
+		else
+			printf("%d\n", array[k]);
 	}
-      if (k != size - 1)
-	printf("%d, ", copy[k]);
-      else
-	printf("%d\n", copy[k]);
+	printf("[Done]: ");
+	for (k = i; k < size; k++)
+	{
+		if (i < middle && (j >= size || array[i] <= array[j]))
+		{
+			copy[k] = array[i];
+			i++;
+		}
+		else
+		{
+			copy[k] = array[j];
+			j++;
+		}
+		if (k != size - 1)
+			printf("%d, ", copy[k]);
+		else
+			printf("%d\n", copy[k]);
 
-    }
+	}
 }
 /**
  * partition - separate the array
@@ -60,17 +60,17 @@ void merging(int *array, int posi, int middle, int size, int *copy)
  */
 void partition(int *copy, int posi, int size, int *array)
 {
-  int middle;
+	int middle;
 
-  if (size - posi < 2)
-    return;
+	if (size - posi < 2)
+		return;
 
-  middle = (size + posi) / 2;
+	middle = (size + posi) / 2;
 
-  partition(array, posi, middle, copy);
-  partition(array, middle, size, copy);
+	partition(array, posi, middle, copy);
+	partition(array, middle, size, copy);
 
-  merging(copy, posi, middle, size, array);
+	merging(copy, posi, middle, size, array);
 }
 /**
  * merge_sort - create the copy and send to partition
@@ -79,16 +79,16 @@ void partition(int *copy, int posi, int size, int *array)
  */
 void merge_sort(int *array, size_t size)
 {
-  int *copy, i;
+	int *copy, i;
 
-  copy = malloc(sizeof(int) * size - 1);
+	copy = malloc(sizeof(int) * size - 1);
 
-  if (!copy)
-    return;
+	if (!copy)
+		return;
 
-  for (i = 0; i < (int)size; i++)
-    copy[i] = array[i];
+	for (i = 0; i < (int)size; i++)
+		copy[i] = array[i];
 
-  partition(copy, 0, size, array);
-  free(copy);
+	partition(copy, 0, size, array);
+	free(copy);
 }
