@@ -28,12 +28,12 @@ List *insert(List **list, char *str)
 }
 
 /**
- * add_top - node at the top
+ * add_node_begin - node at the top
  * @list: doubly linked list
  * @str: string - (malloc'ed string)
  * Return: new node, or if null if it fails
  */
-List *add_top(List **list, char *str)
+List *add_node_begin(List **list, char *str)
 {
 	List *new_node, *temp, *temp2;
 
@@ -67,12 +67,12 @@ List *add_top(List **list, char *str)
 }
 
 /**
- * add_tail - node at last position
+ * add_node_end - node at last position
  * @list: doubly linked list
- * string - (malloc'ed string)
+ * @str: string (malloc'ed string)
  * Return: new node, or NULL if it fails
  */
-List *add_tail(List **list, char *str)
+List *add_node_end(List **list, char *str)
 {
 	List *new_node, *tmp, *temp2;
 

@@ -19,6 +19,6 @@ typedef struct List
 	struct List *next;
 } List;
 List *insert(List **list, char *str);
-List *add_tail(List **list, char *str);
-List *add_top(List **list, char *str);
+List *add_node_end(List **list, char *str);
+List *add_node_begin(List **list, char *str);
 #endif /* LIST_H */
